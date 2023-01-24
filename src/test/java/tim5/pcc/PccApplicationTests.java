@@ -1,4 +1,4 @@
-package com.pcc;
+package tim5.pcc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
