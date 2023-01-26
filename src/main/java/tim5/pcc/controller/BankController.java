@@ -21,7 +21,7 @@ public class BankController {
     final private BankMapper mapper = new BankMapper();
 
     @GetMapping
-    public List<BankDto> getAccounts() {
+    public List<BankDto> getBanks() {
         List<BankDto> dtoList = new ArrayList<>();
         for (Bank bank : bankService.getAll())
             dtoList.add(mapper.BankToDto(bank));
