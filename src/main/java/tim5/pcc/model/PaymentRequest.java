@@ -22,9 +22,13 @@ public class PaymentRequest {
     @Column(name = "id", unique = true)
     private Long id;
     @Column(name = "acquirer_order_id")
-    private String acquirerOrderId;
+    private Long acquirerOrderId;
     @Column(name = "acquirer_timestamp")
     private LocalDateTime acquirerTimestamp;
+    @Column(name = "issuer_order_id")
+    private Long issuerOrderId;
+    @Column(name = "issuer_timestamp")
+    private LocalDateTime issuerTimestamp;
     @Column(name = "pan_number")
     private String panNumber;
     @Column(name = "security_code")
@@ -35,4 +39,6 @@ public class PaymentRequest {
     private LocalDateTime validUntil;
     @Column(name = "amount")
     private double amount;
+    @Column(name = "status")
+    private String status;
 }

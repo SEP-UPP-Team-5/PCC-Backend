@@ -14,5 +14,5 @@ public class BankDto {
     private Long id;
     private String name;
     private String url;
-    private String panNumber;
+    private String idDigits;
 }

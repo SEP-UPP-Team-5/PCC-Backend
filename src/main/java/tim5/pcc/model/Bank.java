@@ -27,5 +27,6 @@ public class Bank {
     private String url;
 
     @Column(name = "id_digits", unique = true)
-    private String panNumber;
+    private String idDigits;
+
 }

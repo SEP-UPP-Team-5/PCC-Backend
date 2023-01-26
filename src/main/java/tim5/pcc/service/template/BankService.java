@@ -8,6 +8,7 @@ public interface BankService {
 
     Bank create(Bank bank);
     Bank getById(Long id);
+    Bank getByIdDigits(String idDigits);
     List<Bank> getAll();
     Bank update(Bank bank);
     Bank delete(Long id);
