@@ -40,7 +40,7 @@ public class BankController {
 
     @PostMapping
     public ResponseEntity<String> saveBank(@RequestBody BankDto dto) {
-        if (isNullOrEmpty(dto.getPanNumber(), dto.getName(), dto.getUrl()))
+        if (isNullOrEmpty(dto.getIdDigits(), dto.getName(), dto.getUrl()))
             return new ResponseEntity<>("None of fields cannot be empty!", HttpStatus.BAD_REQUEST);
         Bank bank = mapper.DtoToBank(dto);
         return new ResponseEntity<>("Added bank with id " + bankService.create(bank).getId(), HttpStatus.OK);

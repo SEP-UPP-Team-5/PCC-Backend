@@ -26,6 +26,11 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
+    public Bank getByIdDigits(String idDigits) {
+        return bankRepository.getByIdDigits(idDigits);
+    }
+
+    @Override
     public List<Bank> getAll() {
         return bankRepository.findAll();
     }
