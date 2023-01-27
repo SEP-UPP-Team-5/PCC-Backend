@@ -53,7 +53,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
 
     @Override
     public PaymentRequest processNewPaymentRequest(CreatePaymentRequestRequestDto createPaymentRequestRequestDto) {
-        Bank bank = bankService.getByIdDigits(createPaymentRequestRequestDto.getPAN().substring(0,3));
+        Bank bank = bankService.getByIdDigits(createPaymentRequestRequestDto.getPan().substring(0,3));
         PaymentRequest paymentRequest = create(paymentRequestInit(createPaymentRequestRequestDto));
         if(bank == null){
             paymentRequest.setStatus("ERROR");
@@ -61,7 +61,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
             return null;
         }else{
             FundsReservationResponseDto fundsReservationResponseDto = sendFundsReservationRequestToBank(bank, paymentRequest);
-            paymentRequest.setStatus(fundsReservationResponseDto.getSTATUS());
+            paymentRequest.setStatus(fundsReservationResponseDto.getStatus());
             update(paymentRequest);
             return paymentRequest;
         }
@@ -73,9 +73,9 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         JSONObject obj = new JSONObject();
         try {
-            obj.put("ACQUIRER_ORDER_ID", paymentRequest.getAcquirerOrderId());
-            obj.put("ACQUIRER_TIMESTAMP", paymentRequest.getAcquirerTimestamp());
-            obj.put("PAN", paymentRequest.getPanNumber());
+            obj.put("acquirer_order_id", paymentRequest.getAcquirerOrderId());
+            obj.put("acquirer_timestamp", paymentRequest.getAcquirerTimestamp());
+            obj.put("pan", paymentRequest.getPanNumber());
             obj.put("securityCode", paymentRequest.getSecurityCode());
             obj.put("cardHolderName", paymentRequest.getCardHolderName());
             obj.put("validUntil", paymentRequest.getValidUntil());
@@ -89,9 +89,9 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     }
 
     private static PaymentRequest paymentRequestInit(CreatePaymentRequestRequestDto createPaymentRequestRequestDto) {
-        return new PaymentRequest(null, createPaymentRequestRequestDto.getACQUIRER_ORDER_ID(),
-                createPaymentRequestRequestDto.getACQUIRER_TIMESTAMP(), null, null,
-                createPaymentRequestRequestDto.getPAN(), createPaymentRequestRequestDto.getSecurityCode(),
+        return new PaymentRequest(null, createPaymentRequestRequestDto.getAcquirer_order_id(),
+                createPaymentRequestRequestDto.getAcquirer_timestamp(), null, null,
+                createPaymentRequestRequestDto.getPan(), createPaymentRequestRequestDto.getSecurityCode(),
                 createPaymentRequestRequestDto.getCardHolderName(), createPaymentRequestRequestDto.getValidUntil(),
                 createPaymentRequestRequestDto.getAmount(), "CREATED");
     }
