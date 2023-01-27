@@ -13,14 +13,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CreatePaymentRequestResponseDto {
 
-    private Long ACQUIRER_ORDER_ID;
+    private Long acquirer_order_id;
 
-    private LocalDateTime ACQUIRER_TIMESTAMP;
+    private LocalDateTime acquirer_timestamp;
 
-    private Long ISSUER_ORDER_ID;
+    private Long issuer_order_id;
 
-    private LocalDateTime ISSUER_TIMESTAMP;
+    private LocalDateTime issuer_timestamp;
 
-    private String STATUS;
+    private String status;
+
 
 }

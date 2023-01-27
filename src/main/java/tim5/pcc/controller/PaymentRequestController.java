@@ -26,24 +26,26 @@ public class PaymentRequestController {
     public ResponseEntity<CreatePaymentRequestResponseDto> create(@RequestBody CreatePaymentRequestRequestDto createPaymentRequestRequestDto) {
         CreatePaymentRequestResponseDto createPaymentRequestResponseDto = createPaymentRequestResponseDto(createPaymentRequestRequestDto);
         if (validateFieldValues(createPaymentRequestRequestDto))
-            return new ResponseEntity<>(createPaymentRequestResponseDto, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(createPaymentRequestResponseDto, HttpStatus.OK);
         PaymentRequest paymentRequest = paymentRequestService.processNewPaymentRequest(createPaymentRequestRequestDto);
+        System.out.println("paymentRequest");
         if(paymentRequest == null)
-            return new ResponseEntity<>(createPaymentRequestResponseDto, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(createPaymentRequestResponseDto, HttpStatus.OK);
+        System.out.println("paymentRequest2");
         return new ResponseEntity<>(updateCreatePaymentRequestResponseDto(createPaymentRequestResponseDto, paymentRequest), HttpStatus.OK);
     }
 
     private CreatePaymentRequestResponseDto updateCreatePaymentRequestResponseDto(CreatePaymentRequestResponseDto createPaymentRequestResponseDto, PaymentRequest paymentRequest) {
-        createPaymentRequestResponseDto.setSTATUS(paymentRequest.getStatus());
-        createPaymentRequestResponseDto.setISSUER_ORDER_ID(paymentRequest.getIssuerOrderId());
-        createPaymentRequestResponseDto.setISSUER_TIMESTAMP(paymentRequest.getIssuerTimestamp());
+        createPaymentRequestResponseDto.setStatus(paymentRequest.getStatus());
+        createPaymentRequestResponseDto.setIssuer_order_id(paymentRequest.getIssuerOrderId());
+        createPaymentRequestResponseDto.setIssuer_timestamp(paymentRequest.getIssuerTimestamp());
         return createPaymentRequestResponseDto;
     }
 
     private static CreatePaymentRequestResponseDto createPaymentRequestResponseDto(CreatePaymentRequestRequestDto createPaymentRequestRequestDto) {
         return new CreatePaymentRequestResponseDto(
-                createPaymentRequestRequestDto.getACQUIRER_ORDER_ID(),
-                createPaymentRequestRequestDto.getACQUIRER_TIMESTAMP(),
+                createPaymentRequestRequestDto.getAcquirer_order_id(),
+                createPaymentRequestRequestDto.getAcquirer_timestamp(),
                 null,
                 null,
                 "ERROR"
@@ -51,9 +53,9 @@ public class PaymentRequestController {
     }
 
     private static boolean validateFieldValues(CreatePaymentRequestRequestDto createPaymentRequestRequestDto) {
-        return isNullOrEmpty(createPaymentRequestRequestDto.getACQUIRER_ORDER_ID().toString(),
-                createPaymentRequestRequestDto.getACQUIRER_TIMESTAMP().toString(),
-                createPaymentRequestRequestDto.getPAN(), createPaymentRequestRequestDto.getSecurityCode(),
+        return isNullOrEmpty(createPaymentRequestRequestDto.getAcquirer_order_id().toString(),
+                createPaymentRequestRequestDto.getAcquirer_timestamp().toString(),
+                createPaymentRequestRequestDto.getPan(), createPaymentRequestRequestDto.getSecurityCode(),
                 createPaymentRequestRequestDto.getCardHolderName(),
                 createPaymentRequestRequestDto.getValidUntil().toString(),
                 String.valueOf(createPaymentRequestRequestDto.getAmount()));
